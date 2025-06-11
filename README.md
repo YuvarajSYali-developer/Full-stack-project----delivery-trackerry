@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Shipment Management System
 
 A full-stack application for managing shipments with user authentication and real-time tracking.
@@ -127,3 +128,6 @@ Once the backend is running, visit http://localhost:8000/docs for the interactiv
 =======
 # Backend-project--2
 >>>>>>> f5adcf6e81906c7dc131250083de2a3e8a248254
+=======
+# Full-stack-project----delivery-trackerry
+>>>>>>> a14f669f04ea8c96cd7af0a01e2949e345761fa9
