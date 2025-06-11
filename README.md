@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Shipment Management System
 
 A full-stack application for managing shipments with user authentication and real-time tracking.
@@ -123,3 +124,6 @@ Once the backend is running, visit http://localhost:8000/docs for the interactiv
 - Protected routes
 - CORS enabled
 - Input validation 
+=======
+# Backend-project--2
+>>>>>>> f5adcf6e81906c7dc131250083de2a3e8a248254
