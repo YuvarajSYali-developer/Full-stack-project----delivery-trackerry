@@ -1,11 +1,8 @@
 <template>
   <div class="shipments-container">
-    <!-- Dashboard Stats -->
-    <DashboardStats />
-
     <div class="header">
       <div class="header-left">
-        <h1>Shipments Dashboard</h1>
+        <h1>Shipments</h1>
         <p class="header-subtitle">Manage your shipments efficiently</p>
       </div>
       <div class="header-right">
@@ -13,9 +10,26 @@
           <span class="btn-icon">+</span>
           Create New Shipment
         </button>
-        <button @click="logout" class="btn-logout">
-          Logout
-        </button>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stat-card">
+        <div class="stat-number">{{ shipments.length }}</div>
+        <div class="stat-label">Total Shipments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ getStatusCount('in_transit') }}</div>
+        <div class="stat-label">In Transit</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ getStatusCount('delivered') }}</div>
+        <div class="stat-label">Delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ getStatusCount('pending') }}</div>
+        <div class="stat-label">Pending</div>
       </div>
     </div>
 
@@ -150,7 +164,6 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { shipmentService } from '@/services/api';
 import type { Shipment } from '@/types';
-import DashboardStats from '@/components/DashboardStats.vue';
 
 const router = useRouter();
 const shipments = ref<Shipment[]>([]);
@@ -230,9 +243,8 @@ const closeModal = () => {
   };
 };
 
-const logout = () => {
-  localStorage.removeItem('token');
-  router.push('/login');
+const getStatusCount = (status: string) => {
+  return shipments.value.filter(shipment => shipment.status === status).length;
 };
 
 onMounted(() => {
@@ -242,9 +254,7 @@ onMounted(() => {
 
 <style scoped>
 .shipments-container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 1.5rem;
   background-color: #f8f9fa;
   min-height: 100vh;
 }
@@ -284,20 +294,40 @@ onMounted(() => {
   margin-right: 0.5rem;
 }
 
-.btn-logout {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.btn-logout:hover {
-  background: #5a6268;
-  transform: translateY(-1px);
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #6c757d;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .shipments-list {
